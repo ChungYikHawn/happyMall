@@ -115,12 +115,12 @@ public class ProductManageController {
     @RequestMapping("upload.do")
     @ResponseBody
     public ServerResponse upload(@RequestParam(value = "upload_file",required = false) MultipartFile file, HttpServletRequest request,HttpSession session){
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
-            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
-        }
+//        User user = (User)session.getAttribute(Const.CURRENT_USER);
+//        if(user == null){
+//            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
+//        }
 //        校验一下是否是管理员
-        if(iUserService.checkAdminRole(user).isSuccess()){
+//        if(iUserService.checkAdminRole(user).isSuccess()){
             String path=request.getServletContext().getRealPath("upload");
             String targetFileName=iFileService.upload(file,path);
             String url= PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
@@ -128,9 +128,9 @@ public class ProductManageController {
             fileMap.put("uri",targetFileName);
             fileMap.put("url",url);
             return ServerResponse.createBySuccess(fileMap);
-        }else{
-            return ServerResponse.createByErrorMessage("无权限操作,需要管理员权限");
-        }
+//        }else{
+//            return ServerResponse.createByErrorMessage("无权限操作,需要管理员权限");
+//        }
     }
 
 
